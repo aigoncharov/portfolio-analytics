@@ -2,6 +2,8 @@ import OpenAPI, { MarketInstrument, InstrumentType } from '@tinkoff/invest-opena
 
 import { apiURL, socketURL } from './consts'
 
+const oneDayInMs = 24 * 60 * 60 * 1000
+
 type MarketMap = {
   [Key in InstrumentType]: {
     [figi: string]: MarketInstrument
@@ -49,7 +51,7 @@ export class Client extends OpenAPI {
 
   public async currentPrice(figi: string) {
     const to = new Date().toISOString()
-    const from = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+    const from = new Date(Date.now() - oneDayInMs).toISOString()
 
     const { candles } = await this.candlesGet({
       from,
@@ -64,6 +66,6 @@ export class Client extends OpenAPI {
       throw new Error(`Instrument ${figi} is missing an hour candle from ${from} to ${to}`)
     }
 
-    return Math.abs(lastCandle.o + lastCandle.c) / 2
+    return lastCandle.c
   }
 }
