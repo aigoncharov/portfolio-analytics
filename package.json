@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@tinkoff/invest-openapi-js-sdk": "^1.2.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "commander": "^5.0.0",
     "qs": "^6.9.3"
   }
